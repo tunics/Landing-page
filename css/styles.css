@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 16px;
+    line-height: 1.5em;
+    margin: 0;
+}
+
+#page-header {
+    background-color: darkgrey;
+    padding: 1rem;
+    position: fixed;
+    width: 100%;
+}
+
+main {
+    padding: 1rem;
+    padding-top: 5rem;
+}
+
+main > section {
+    background-color: darkorange;
+    height: 600px;
+}
+
+footer {
+    background-color: darkgrey;
+    padding: 1rem;
+}
