@@ -1,2 +1,2 @@
 # Landing-page
-Landing page project for udacity nanodegree program
+Project created for Udacity Front End Web Developer Nanodegree Program
