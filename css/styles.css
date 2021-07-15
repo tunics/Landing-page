@@ -17,6 +17,14 @@ body {
     width: 100%;
 }
 
+#menu-itens a.active {
+    color: blue;
+}
+
+#menu-itens a:hover {
+    color: red;
+}
+
 main {
     padding: 1rem;
     padding-top: 5rem;
@@ -25,6 +33,18 @@ main {
 main > section {
     background-color: darkorange;
     height: 600px;
+}
+
+main > section.active {
+    background-color: red;
+}
+
+#back-top {
+    position: fixed;
+    margin: 0;
+    padding: 1rem;
+    bottom: 2rem;
+    right: 2rem;
 }
 
 footer {
