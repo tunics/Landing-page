@@ -4,8 +4,10 @@
 var mainSections = document.querySelectorAll(".main-sections");
 var menuItens = document.querySelector("#menu-itens");
 var pageHeader = document.querySelector("#page-header");
+const menuBtn = document.querySelector("#menu-btn");
 var backTopBt = document.querySelector("#back-top");
 var logo = document.querySelector(".menu-logo");
+var desktopBreakPoint = window.matchMedia("(min-width: 920px)");
 var timer = null;
 
 /**
@@ -20,6 +22,29 @@ function backToTop(element) {
             behavior: "smooth",
         });
     });
+}
+
+function openMenu() {
+    menuBtn.addEventListener("click", function (e) {
+        if (menuItens.style.display === "none") {
+            menuItens.style.display = "inline-flex";
+            menuBtn.innerHTML = "close";
+        } else {
+            menuItens.style.display = "none";
+            menuBtn.innerHTML = "menu";
+        }
+    });
+}
+
+function checkScreenSize(breakPoint) {
+    if (breakPoint.matches) {
+        menuItens.style.display = "inline-flex";
+        menuBtn.style.display = "none";
+    } else {
+        menuBtn.style.display = "inline-block";
+        menuBtn.innerHTML = "menu";
+        menuItens.style.display = "none";
+    }
 }
 
 /**
@@ -60,9 +85,13 @@ document.addEventListener("scroll", function (e) {
 window.addEventListener(
     "scroll",
     function () {
-        if (window.scrollY === 0 || window.scrollY < window.innerHeight / 2) {
+        if (
+            (window.scrollY === 0 && timer !== null) ||
+            (window.scrollY < window.innerHeight / 2 && timer !== null)
+        ) {
             backTopBt.style.display = "none";
             pageHeader.style.display = "block";
+            clearTimeout(timer);
         } else {
             if (timer !== null) {
                 clearTimeout(timer);
@@ -72,7 +101,7 @@ window.addEventListener(
             timer = setTimeout(function () {
                 backTopBt.style.display = "none";
                 pageHeader.style.display = "none";
-            }, 5000);
+            }, 3000);
         }
     },
     false
@@ -110,3 +139,7 @@ backToTop(backTopBt);
 backToTop(logo);
 
 // Hide when not scrolling
+
+// Open Menu on mobile
+openMenu();
+desktopBreakPoint.addEventListener("change", checkScreenSize);

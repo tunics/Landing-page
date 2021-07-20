@@ -10,11 +10,31 @@ body {
     margin: 0;
 }
 
+/* Header */
 #page-header {
     background-color: darkgrey;
     padding: 1rem;
     position: fixed;
     width: 100%;
+}
+
+/* Menu */
+#menu-btn {
+    display: inline-block;
+}
+
+#menu-itens {
+    display: none;
+}
+
+@media screen and (min-width: 992px) {
+    #menu-btn {
+        display: none;
+    }
+
+    #menu-itens {
+        display: inline-flex;
+    }
 }
 
 #menu-itens a.active {
@@ -41,6 +61,7 @@ main > section.active {
 
 #back-top {
     position: fixed;
+    display: none;
     margin: 0;
     padding: 1rem;
     bottom: 2rem;
