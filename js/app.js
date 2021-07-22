@@ -151,9 +151,6 @@ mainSections.forEach(
     (el) => (el.style.minHeight = window.innerHeight - headerHeight + "px")
 );
 
-// Scroll to section on link click
-scrollToSection();
-
 // Set sections as active
 setActive();
 
@@ -167,3 +164,6 @@ hideHeader();
 // Open Menu on mobile
 openMenu();
 desktopBreakPoint.addEventListener("change", checkScreenSize);
+
+// Scroll to section on link click
+scrollToSection();
