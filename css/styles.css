@@ -152,6 +152,8 @@ main section.main-sections {
 
 .section-img {
     width: 100%;
+    min-height: 300px;
+    object-fit: cover;
 }
 
 @media screen and (min-width: 992px) {
@@ -169,7 +171,6 @@ main section.main-sections {
 
     .section-img {
         width: 60%;
-        object-fit: cover;
     }
 }
 
