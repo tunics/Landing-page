@@ -67,56 +67,58 @@ function buildMenu() {
 }
 
 // Add class 'active' to section when near top of viewport and change active nav button
-document.addEventListener("scroll", function (e) {
-    let items = menuItens.children;
+function setActive() {
+    document.addEventListener("scroll", function () {
+        let items = menuItens.children;
 
-    for (var i = 0; i < mainSections.length; i++) {
-        if (
-            i === mainSections.length - 1 &&
-            window.innerHeight + window.scrollY >= document.body.offsetHeight
-        ) {
-            mainSections[i].classList.add("active");
-            items[i].classList.add("active");
-        } else if (
-            mainSections[i].getBoundingClientRect().top <=
-                window.innerHeight / 2 &&
-            mainSections[i].getBoundingClientRect().top >=
-                window.innerHeight / 2 - mainSections[i].offsetHeight
-        ) {
-            mainSections[i].classList.add("active");
-            items[i].classList.add("active");
-        } else {
-            mainSections[i].classList.remove("active");
-            items[i].classList.remove("active");
+        for (var i = 0; i < mainSections.length; i++) {
+            if (
+                i === mainSections.length - 1 &&
+                window.innerHeight + window.scrollY >=
+                    document.body.offsetHeight
+            ) {
+                mainSections[i].classList.add("active");
+                items[i].classList.add("active");
+            } else if (
+                mainSections[i].getBoundingClientRect().top <=
+                    window.innerHeight / 2 &&
+                mainSections[i].getBoundingClientRect().top >=
+                    window.innerHeight / 2 - mainSections[i].offsetHeight
+            ) {
+                mainSections[i].classList.add("active");
+                items[i].classList.add("active");
+            } else {
+                mainSections[i].classList.remove("active");
+                items[i].classList.remove("active");
+            }
         }
-    }
-});
+    });
+}
 
 // Hide after stop scrolling
-window.addEventListener(
-    "scroll",
-    function () {
-        if (
-            (window.scrollY === 0 && timer !== null) ||
-            (window.scrollY < window.innerHeight / 2 && timer !== null)
-        ) {
-            backTopBt.style.display = "none";
-            pageHeader.style.display = "block";
-            clearTimeout(timer);
-        } else {
-            if (timer !== null) {
-                clearTimeout(timer);
-                backTopBt.style.display = "block";
-                pageHeader.style.display = "block";
-            }
-            timer = setTimeout(function () {
+function hideHeader() {
+    window.addEventListener(
+        "scroll",
+        function () {
+            if (window.scrollY < window.innerHeight / 2 && timer !== null) {
                 backTopBt.style.display = "none";
-                pageHeader.style.display = "none";
-            }, 3000);
-        }
-    },
-    false
-);
+                pageHeader.style.display = "block";
+                clearTimeout(timer);
+            } else {
+                if (timer !== null) {
+                    clearTimeout(timer);
+                    backTopBt.style.display = "block";
+                    pageHeader.style.display = "block";
+                }
+                timer = setTimeout(function () {
+                    backTopBt.style.display = "none";
+                    pageHeader.style.display = "none";
+                }, 5000);
+            }
+        },
+        false
+    );
+}
 
 // Scroll to sections
 function scrollToSection() {
@@ -153,12 +155,14 @@ mainSections.forEach(
 scrollToSection();
 
 // Set sections as active
+setActive();
 
 // Scroll to top on click
 backToTop(backTopBt);
 backToTop(logo);
 
 // Hide when not scrolling
+hideHeader();
 
 // Open Menu on mobile
 openMenu();

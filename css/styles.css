@@ -7,8 +7,9 @@
     --color-blue: #a1e0ff;
     --color-green: #a8e6cf;
     --color-lime: #ddedc0;
+    --color-brown: #421405;
 
-    --shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.08);
+    --shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.15);
 }
 
 * {
@@ -21,6 +22,7 @@ body {
     line-height: 1.5em;
     margin: 0;
     background-color: var(--color-pink);
+    color: var(--color-brown);
 }
 
 h1 {
@@ -47,11 +49,13 @@ h3 {
 
 /* Header */
 #page-header {
-    background-color: var(--color-green);
     box-shadow: var(--shadow);
     padding: 1rem;
     position: fixed;
     width: 100%;
+    z-index: 100;
+    background: rgba(168, 230, 207, 0.85);
+    backdrop-filter: blur(8px);
 }
 
 .menu {
@@ -126,14 +130,22 @@ main {
     display: flex;
     flex-direction: column;
     height: 100%;
+    background-color: var(--color-green);
 }
 
 main section.main-sections {
+    -webkit-transition: background-color 200ms linear;
+    -ms-transition: background-color 200ms linear;
+    transition: background-color 200ms linear;
     background-color: var(--color-purple);
     display: flex;
     flex-direction: column;
     align-items: stretch;
     align-content: stretch;
+}
+
+main section.main-sections.active {
+    background-color: var(--color-pink);
 }
 
 .section-txt {
@@ -146,6 +158,8 @@ main section.main-sections {
 .section-txt > span {
     color: white;
     text-decoration: underline;
+    font-weight: 700;
+    opacity: 0.7;
 }
 
 .section-txt h1,
@@ -157,6 +171,21 @@ main section.main-sections {
     width: 100%;
     object-fit: cover;
     flex-grow: 1;
+}
+
+#back-top {
+    position: fixed;
+    display: none;
+    margin: 0;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 1rem;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: var(--color-lime);
+    box-shadow: var(--shadow);
+    color: var(--color-brown);
 }
 
 @media screen and (min-width: 992px) {
@@ -173,24 +202,19 @@ main section.main-sections {
     }
 
     .section-img {
-        width: 60%;
+        width: 65%;
     }
 }
 
-main > section.active {
-    background-color: var(--color-pink);
-}
-
-#back-top {
-    position: fixed;
-    display: none;
-    margin: 0;
-    padding: 1rem;
-    bottom: 2rem;
-    right: 2rem;
-}
-
+/* Footer */
 footer {
-    background-color: darkgrey;
+    background-color: var(--color-green);
     padding: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+footer img {
+    height: 0.8rem;
+    margin: 0 auto;
 }
