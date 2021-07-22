@@ -1,13 +1,16 @@
 /**
  * Define Global Variables
  */
-var mainSections = document.querySelectorAll(".main-sections");
-var menuItens = document.querySelector("#menu-itens");
-var pageHeader = document.querySelector("#page-header");
+const main = document.getElementsByTagName("main")[0];
+const mainSections = document.querySelectorAll(".main-sections");
+const sectionTxt = document.querySelectorAll(".section-txt");
+const menuItens = document.querySelector("#menu-itens");
+const pageHeader = document.querySelector("#page-header");
+const headerHeight = pageHeader.offsetHeight;
 const menuBtn = document.querySelector("#menu-btn");
-var backTopBt = document.querySelector("#back-top");
-var logo = document.querySelector(".menu-logo");
-var desktopBreakPoint = window.matchMedia("(min-width: 920px)");
+const backTopBt = document.querySelector("#back-top");
+const logo = document.querySelector(".menu-logo");
+var desktopBreakPoint = window.matchMedia("(min-width: 992px)");
 var timer = null;
 
 /**
@@ -54,11 +57,13 @@ function checkScreenSize(breakPoint) {
  */
 
 // Build nav
-for (let section of mainSections) {
-    let item = document.createElement("a");
-    item.innerHTML = section.firstElementChild.innerText;
-    // item.href = `#${section.id}`;
-    menuItens.appendChild(item);
+function buildMenu() {
+    for (let section of sectionTxt) {
+        let item = document.createElement("a");
+        item.innerHTML = section.firstElementChild.innerText;
+        // item.href = `#${section.id}`;
+        menuItens.appendChild(item);
+    }
 }
 
 // Add class 'active' to section when near top of viewport and change active nav button
@@ -67,10 +72,16 @@ document.addEventListener("scroll", function (e) {
 
     for (var i = 0; i < mainSections.length; i++) {
         if (
-            mainSections[i].getBoundingClientRect().y <=
-                pageHeader.offsetHeight &&
-            mainSections[i].getBoundingClientRect().y >=
-                pageHeader.offsetHeight - mainSections[i].offsetHeight
+            i === mainSections.length - 1 &&
+            window.innerHeight + window.scrollY >= document.body.offsetHeight
+        ) {
+            mainSections[i].classList.add("active");
+            items[i].classList.add("active");
+        } else if (
+            mainSections[i].getBoundingClientRect().top <=
+                window.innerHeight / 2 &&
+            mainSections[i].getBoundingClientRect().top >=
+                window.innerHeight / 2 - mainSections[i].offsetHeight
         ) {
             mainSections[i].classList.add("active");
             items[i].classList.add("active");
@@ -108,18 +119,18 @@ window.addEventListener(
 );
 
 // Scroll to sections
-for (var i = 0; i < menuItens.children.length; i++) {
-    let section =
-        mainSections[i].getBoundingClientRect().y -
-        pageHeader.offsetHeight +
-        window.scrollY +
-        1;
-    menuItens.children[i].addEventListener("click", function (e) {
-        window.scrollTo({
-            top: section,
-            behavior: "smooth",
+function scrollToSection() {
+    for (var i = 0; i < menuItens.children.length; i++) {
+        let section =
+            mainSections[i].getBoundingClientRect().top - headerHeight;
+
+        menuItens.children[i].addEventListener("click", function (e) {
+            window.scrollTo({
+                top: section,
+                behavior: "smooth",
+            });
         });
-    });
+    }
 }
 
 /**
@@ -127,10 +138,19 @@ for (var i = 0; i < menuItens.children.length; i++) {
  * Begin Events
  *
  */
-
 // Build menu
+buildMenu();
+
+// Add padding top to main
+main.style.paddingTop = headerHeight + "px";
+
+// Set main sections height
+mainSections.forEach(
+    (el) => (el.style.minHeight = window.innerHeight - headerHeight + "px")
+);
 
 // Scroll to section on link click
+scrollToSection();
 
 // Set sections as active
 
