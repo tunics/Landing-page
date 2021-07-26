@@ -28,17 +28,27 @@ function backToTop(element) {
     });
 }
 
-function openCloseMenu(btn) {
+function openMenu(btn) {
     btn.addEventListener("click", function (e) {
         if (menuItens.style.display === "none") {
             menuItens.style.display = "inline-flex";
             menuBtn.innerHTML = "close";
         } else {
-            menuItens.style.display = "none";
-            menuBtn.innerHTML = "menu";
+            closeMenu(btn);
         }
         e.preventDefault();
     });
+}
+
+function closeMenu(btn) {
+    if (desktopBreakPoint.matches) {
+        menuItens.style.display = "inline-flex";
+        menuBtn.innerHTML = "menu";
+        menuBtn.style.display = "none";
+    } else {
+        menuItens.style.display = "none";
+        menuBtn.innerHTML = "menu";
+    }
 }
 
 function checkScreenSize(breakPoint) {
@@ -129,9 +139,10 @@ function scrollToSection() {
 
         menuItens.children[i].addEventListener("click", function (e) {
             window.scrollTo({
-                top: sectionTop,
+                top: 0 + sectionTop,
                 behavior: "smooth",
             });
+            closeMenu(menuItens.children[i]);
             e.preventDefault();
         });
     }
@@ -146,7 +157,7 @@ function scrollToSection() {
 buildMenu();
 
 // Open/Close Menu on mobile
-openCloseMenu(menuBtn);
+openMenu(menuBtn);
 desktopBreakPoint.addEventListener("change", checkScreenSize);
 
 // Add padding top to main
@@ -154,7 +165,9 @@ main.style.paddingTop = headerHeight + "px";
 
 // Set main sections height
 mainSections.forEach(
-    (el) => (el.style.minHeight = window.innerHeight - headerHeight + "px")
+    (el) =>
+        (el.style.minHeight =
+            window.document.documentElement.clientHeight - headerHeight + "px")
 );
 
 // Set sections as active
