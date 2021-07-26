@@ -28,8 +28,8 @@ function backToTop(element) {
     });
 }
 
-function openMenu() {
-    menuBtn.addEventListener("click", function (e) {
+function openCloseMenu(btn) {
+    btn.addEventListener("click", function (e) {
         if (menuItens.style.display === "none") {
             menuItens.style.display = "inline-flex";
             menuBtn.innerHTML = "close";
@@ -125,12 +125,11 @@ function hideHeader() {
 // Scroll to sections
 function scrollToSection() {
     for (let i = 0; i < menuItens.children.length; i++) {
-        let section =
-            mainSections[i].getBoundingClientRect().top - headerHeight;
+        let sectionTop = mainSections[i].offsetTop - headerHeight;
 
         menuItens.children[i].addEventListener("click", function (e) {
             window.scrollTo({
-                top: section,
+                top: sectionTop,
                 behavior: "smooth",
             });
             e.preventDefault();
@@ -145,6 +144,10 @@ function scrollToSection() {
  */
 // Build menu
 buildMenu();
+
+// Open/Close Menu on mobile
+openCloseMenu(menuBtn);
+desktopBreakPoint.addEventListener("change", checkScreenSize);
 
 // Add padding top to main
 main.style.paddingTop = headerHeight + "px";
@@ -163,10 +166,6 @@ backToTop(logo);
 
 // Hide when not scrolling
 hideHeader();
-
-// Open Menu on mobile
-openMenu();
-desktopBreakPoint.addEventListener("change", checkScreenSize);
 
 // Scroll to section on link click
 scrollToSection();

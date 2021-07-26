@@ -108,6 +108,16 @@ h3 {
     color: var(--color-pink);
 }
 
+#menu-glass {
+    display: block;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+    z-index: -2;
+    height: 100%;
+    width: 100%;
+}
+
 @media screen and (min-width: 992px) {
     #menu-btn {
         display: none;
