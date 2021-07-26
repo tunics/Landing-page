@@ -24,6 +24,7 @@ function backToTop(element) {
             top: 0,
             behavior: "smooth",
         });
+        e.preventDefault();
     });
 }
 
@@ -36,6 +37,7 @@ function openMenu() {
             menuItens.style.display = "none";
             menuBtn.innerHTML = "menu";
         }
+        e.preventDefault();
     });
 }
 
@@ -131,6 +133,7 @@ function scrollToSection() {
                 top: section,
                 behavior: "smooth",
             });
+            e.preventDefault();
         });
     }
 }
