@@ -7,7 +7,7 @@ const sectionTxt = document.querySelectorAll(".section-txt");
 const menuItens = document.querySelector("#menu-itens");
 const pageHeader = document.querySelector("#page-header");
 const headerHeight = pageHeader.offsetHeight;
-const menuBtn = document.querySelector("#menu-btn");
+const menuBtn = document.getElementById("menu-btn");
 const backTopBt = document.querySelector("#back-top");
 const logo = document.querySelector(".menu-logo");
 let desktopBreakPoint = window.matchMedia("(min-width: 992px)");
@@ -30,7 +30,10 @@ function backToTop(element) {
 
 function openMenu(btn) {
     btn.addEventListener("click", function (e) {
-        if (menuItens.style.display === "none") {
+        if (
+            menuItens.style.display === "none" ||
+            menuItens.style.display === ""
+        ) {
             menuItens.style.display = "inline-flex";
             menuBtn.innerHTML = "close";
         } else {
@@ -75,6 +78,7 @@ function buildMenu() {
         item.innerHTML = section.firstElementChild.innerText;
         // item.href = `#${section.id}`;
         menuItens.appendChild(item);
+        menuItens.firstChild.classList.add("active");
     }
 }
 
@@ -135,11 +139,9 @@ function hideHeader() {
 // Scroll to sections
 function scrollToSection() {
     for (let i = 0; i < menuItens.children.length; i++) {
-        let sectionTop = mainSections[i].offsetTop - headerHeight;
-
         menuItens.children[i].addEventListener("click", function (e) {
             window.scrollTo({
-                top: 0 + sectionTop,
+                top: mainSections[i].offsetTop - headerHeight,
                 behavior: "smooth",
             });
             closeMenu(menuItens.children[i]);
@@ -156,6 +158,9 @@ function scrollToSection() {
 // Build menu
 buildMenu();
 
+// Set sections as active
+setActive();
+
 // Open/Close Menu on mobile
 openMenu(menuBtn);
 desktopBreakPoint.addEventListener("change", checkScreenSize);
@@ -169,9 +174,6 @@ mainSections.forEach(
         (el.style.minHeight =
             window.document.documentElement.clientHeight - headerHeight + "px")
 );
-
-// Set sections as active
-setActive();
 
 // Scroll to top on click
 backToTop(backTopBt);
