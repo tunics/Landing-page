@@ -10,8 +10,8 @@ const headerHeight = pageHeader.offsetHeight;
 const menuBtn = document.querySelector("#menu-btn");
 const backTopBt = document.querySelector("#back-top");
 const logo = document.querySelector(".menu-logo");
-var desktopBreakPoint = window.matchMedia("(min-width: 992px)");
-var timer = null;
+let desktopBreakPoint = window.matchMedia("(min-width: 992px)");
+let timer = null;
 
 /**
  * End Global Variables
@@ -59,7 +59,7 @@ function checkScreenSize(breakPoint) {
 // Build nav
 function buildMenu() {
     for (let section of sectionTxt) {
-        let item = document.createElement("a");
+        let item = document.createElement("li");
         item.innerHTML = section.firstElementChild.innerText;
         // item.href = `#${section.id}`;
         menuItens.appendChild(item);
@@ -71,7 +71,7 @@ function setActive() {
     document.addEventListener("scroll", function () {
         let items = menuItens.children;
 
-        for (var i = 0; i < mainSections.length; i++) {
+        for (let i = 0; i < mainSections.length; i++) {
             if (
                 i === mainSections.length - 1 &&
                 window.innerHeight + window.scrollY >=
@@ -122,7 +122,7 @@ function hideHeader() {
 
 // Scroll to sections
 function scrollToSection() {
-    for (var i = 0; i < menuItens.children.length; i++) {
+    for (let i = 0; i < menuItens.children.length; i++) {
         let section =
             mainSections[i].getBoundingClientRect().top - headerHeight;
 
